@@ -17,7 +17,8 @@ module.exports = [
 				Buffer: 'readonly',
 				HTMLElement: 'readonly',
 				customElements: 'readonly',
-				CustomEvent: 'readonly'
+				CustomEvent: 'readonly',
+				URL: 'readonly'
 			}
 		},
 		rules: {

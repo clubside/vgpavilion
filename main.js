@@ -3,6 +3,7 @@ const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron')
 const fs = require('node:fs')
 const path = require('node:path')
 const { popupContextMenu } = require('./modules/contextmenu.js')
+const { createWebServer } = require('./modules/web-server.js')
 
 const mainWindowOptions = {
 	width: 800,
@@ -81,6 +82,7 @@ async function setSiteFolder(folder) {
 	if (fs.existsSync(pathNormalized)) {
 		appOptions.site = pathNormalized
 		await setOptions()
+		createWebServer(appOptions.site)
 		return appOptions.site
 	} else {
 		return folder
@@ -104,6 +106,9 @@ async function getOptions() {
 		appOptions.windowHeight = options.windowHeight || undefined
 		appOptions.colorMode = options.colorMode || 'light'
 		console.log(appOptions)
+		if (appOptions.site !== '') {
+			createWebServer(appOptions.site)
+		}
 	}
 }
 

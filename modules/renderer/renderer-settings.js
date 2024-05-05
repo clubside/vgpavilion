@@ -112,15 +112,15 @@ document.getElementById('database-folder').addEventListener('change', () => {
 document.getElementById('browse-database-folder').addEventListener('click', async () => {
 	const newFolder = await window.electronAPI.chooseDatabaseFolder()
 	if (newFolder !== '') {
-		appSettings.db = newFolder
-		document.getElementById('database-folder').value = appSettings.db
+		document.getElementById('database-folder').value = newFolder
 		checkDatabaseFolder()
 	}
 })
 
 document.getElementById('set-database-folder').addEventListener('click', async () => {
-	console.log(`setting database folder to ${appSettings.db}`)
-	appSettings.site = await window.electronAPI.setDatabaseFolder(appSettings.db)
+	const databaseFolder = document.getElementById('database-folder').value
+	console.log(`setting database folder to ${databaseFolder}`)
+	appSettings.db = await window.electronAPI.setDatabaseFolder(databaseFolder)
 	console.log(`new database folder is ${appSettings.db}`)
 	if (appSettings.site !== '' && appSettings.db !== '') {
 		setCurrentPanel('home', false)
@@ -135,15 +135,15 @@ document.getElementById('site-folder').addEventListener('change', () => {
 document.getElementById('browse-site-folder').addEventListener('click', async () => {
 	const newFolder = await window.electronAPI.chooseSiteFolder()
 	if (newFolder !== '') {
-		appSettings.site = newFolder
-		document.getElementById('site-folder').value = appSettings.site
+		document.getElementById('site-folder').value = newFolder
 		checkSiteFolder()
 	}
 })
 
 document.getElementById('set-site-folder').addEventListener('click', async () => {
-	console.log(`setting site folder to ${appSettings.site}`)
-	appSettings.site = await window.electronAPI.setSiteFolder(appSettings.site)
+	const siteFolder = document.getElementById('site-folder').value
+	console.log(`setting site folder to ${siteFolder}`)
+	appSettings.site = await window.electronAPI.setSiteFolder(siteFolder)
 	console.log(`new site folder is ${appSettings.site}`)
 	if (appSettings.site !== '' && appSettings.db !== '') {
 		setCurrentPanel('home', false)
