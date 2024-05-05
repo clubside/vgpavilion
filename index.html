@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src * data:; script-src 'self'">
+	<meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src * data:; script-src 'self'">
+	<title>VGPavilion Site Manager</title>
+	<link href="./css/the-new-css-reset.css" rel="stylesheet">
+	<link href="./css/style.css" rel="stylesheet">
+	<script src="./modules/web-components/media-upload.js"></script>
+	<script src="./modules/web-components/star-rating.js"></script>
+	<script src="./modules/web-components/toggle-switch.js"></script>
+	<script src="./modules/web-components/progress-bar.js"></script>
+</head>
+
+<body>
+	<svg class="hidden">
+		<symbol id="caret-right" viewBox="0 0 24 24" stroke-width="1.5"><path d="M9 6L15 12L9 18" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="caret-left" viewBox="0 0 24 24"  stroke-width="1.5" fill="inherit" color="inherit"><path d="M15 6L9 12L15 18" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="caret-down" viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 9L12 15L18 9" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="caret-up" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M6 15L12 9L18 15" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-folder" viewBox="0 0 24 24" stroke-width="1.5"><path d="M2 11V4.6C2 4.26863 2.26863 4 2.6 4H8.77805C8.92127 4 9.05977 4.05124 9.16852 4.14445L12.3315 6.85555C12.4402 6.94876 12.5787 7 12.722 7H21.4C21.7314 7 22 7.26863 22 7.6V11M2 11V19.4C2 19.7314 2.26863 20 2.6 20H21.4C21.7314 20 22 19.7314 22 19.4V11M2 11H22" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="check-none" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="check-some" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M7 12.5L10 15.5L17 8.5" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="check-all" viewBox="0 0 24 24" fill="inherit" color="inherit" stroke-width="1.5"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM7.53044 11.9697C7.23755 11.6768 6.76268 11.6768 6.46978 11.9697C6.17689 12.2626 6.17689 12.7374 6.46978 13.0303L9.46978 16.0303C9.76268 16.3232 10.2376 16.3232 10.5304 16.0303L17.5304 9.03033C17.8233 8.73744 17.8233 8.26256 17.5304 7.96967C17.2375 7.67678 16.7627 7.67678 16.4698 7.96967L10.0001 14.4393L7.53044 11.9697Z" fill="inherit"></path></symbol>
+		<symbol id="icon-ai" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M8 15C12.8747 15 15 12.949 15 8C15 12.949 17.1104 15 22 15C17.1104 15 15 17.1104 15 22C15 17.1104 12.8747 15 8 15Z" stroke="inherit" stroke-width="1.5" stroke-linejoin="round"></path><path d="M2 6.5C5.13376 6.5 6.5 5.18153 6.5 2C6.5 5.18153 7.85669 6.5 11 6.5C7.85669 6.5 6.5 7.85669 6.5 11C6.5 7.85669 5.13376 6.5 2 6.5Z" stroke="inherit" stroke-width="1.5" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-map" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M20 10C20 14.4183 12 22 12 22C12 22 4 14.4183 4 10C4 5.58172 7.58172 2 12 2C16.4183 2 20 5.58172 20 10Z" stroke="inherit" stroke-width="1.5"></path><path d="M12 11C12.5523 11 13 10.5523 13 10C13 9.44772 12.5523 9 12 9C11.4477 9 11 9.44772 11 10C11 10.5523 11.4477 11 12 11Z" fill="inherit" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-details" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 10L16 10" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 18L16 18" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 14L12 14" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-sidebar" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9.5 21V3" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-targets" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M16.2778 17.5412C15.0948 18.4558 13.611 19 12 19C8.13401 19 5 15.866 5 12C5 8.13401 8.13401 5 12 5C15.866 5 19 8.13401 19 12C19 16.2778 14 15.7222 14 13C14 11.4444 14 8.5 14 8.5" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 12V11.5C14 10.1193 12.8807 9 11.5 9C10.1193 9 9 10.1193 9 11.5V12" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 12V12.5C14 13.8807 12.8807 15 11.5 15C10.1193 15 9 13.8807 9 12.5V12" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-folders" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M2 11V4.6C2 4.26863 2.26863 4 2.6 4H8.77805C8.92127 4 9.05977 4.05124 9.16852 4.14445L12.3315 6.85555C12.4402 6.94876 12.5787 7 12.722 7H21.4C21.7314 7 22 7.26863 22 7.6V11M2 11V19.4C2 19.7314 2.26863 20 2.6 20H21.4C21.7314 20 22 19.7314 22 19.4V11M2 11H22" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-clear-shelf" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M2 10C2 10 13 10 16 10C24 10 24 21 16 21M2 10L9 3M2 10L9 17" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-close" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-settings" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19.6224 10.3954L18.5247 7.7448L20 6L18 4L16.2647 5.48295L13.5578 4.36974L12.9353 2H10.981L10.3491 4.40113L7.70441 5.51596L6 4L4 6L5.45337 7.78885L4.3725 10.4463L2 11V13L4.40111 13.6555L5.51575 16.2997L4 18L6 20L7.79116 18.5403L10.397 19.6123L11 22H13L13.6045 19.6132L16.2551 18.5155C16.6969 18.8313 18 20 18 20L20 18L18.5159 16.2494L19.6139 13.598L21.9999 12.9772L22 11L19.6224 10.3954Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-back" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M16 12H8M8 12L11.5 15.5M8 12L11.5 8.5" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-star" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M8.58737 8.23597L11.1849 3.00376C11.5183 2.33208 12.4817 2.33208 12.8151 3.00376L15.4126 8.23597L21.2215 9.08017C21.9668 9.18848 22.2638 10.0994 21.7243 10.6219L17.5217 14.6918L18.5135 20.4414C18.6409 21.1798 17.8614 21.7428 17.1945 21.3941L12 18.678L6.80547 21.3941C6.1386 21.7428 5.35909 21.1798 5.48645 20.4414L6.47825 14.6918L2.27575 10.6219C1.73617 10.0994 2.03322 9.18848 2.77852 9.08017L8.58737 8.23597Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-save" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M3 19V5C3 3.89543 3.89543 3 5 3H16.1716C16.702 3 17.2107 3.21071 17.5858 3.58579L20.4142 6.41421C20.7893 6.78929 21 7.29799 21 7.82843V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19Z" stroke="inherit" stroke-width="1.5"></path><path d="M8.6 9H15.4C15.7314 9 16 8.73137 16 8.4V3.6C16 3.26863 15.7314 3 15.4 3H8.6C8.26863 3 8 3.26863 8 3.6V8.4C8 8.73137 8.26863 9 8.6 9Z" stroke="inherit" stroke-width="1.5"></path><path d="M6 13.6V21H18V13.6C18 13.2686 17.7314 13 17.4 13H6.6C6.26863 13 6 13.2686 6 13.6Z" stroke="inherit" stroke-width="1.5"></path></symbol>
+		<symbol id="icon-task" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M9 6L20 6" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.80002 5.79999L4.60002 6.59998L6.60001 4.59999" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.80002 11.8L4.60002 12.6L6.60001 10.6" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.80002 17.8L4.60002 18.6L6.60001 16.6" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 12L20 12" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 18L20 18" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-link" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M21 3L15 3M21 3L12 12M21 3V9" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 13V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H11" stroke="inherit" stroke-width="1.5" stroke-linecap="round"></path></symbol>
+		<symbol id="icon-dark" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-light" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M22 12L23 12" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 2V1" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 23V22" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20 20L19 19" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20 4L19 5" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 20L5 19" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 4L5 5" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12L2 12" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-scan" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M21.1679 8C19.6247 4.46819 16.1006 2 11.9999 2C6.81459 2 2.55104 5.94668 2.04932 11" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17 8H21.4C21.7314 8 22 7.73137 22 7.4V3" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.88146 16C4.42458 19.5318 7.94874 22 12.0494 22C17.2347 22 21.4983 18.0533 22 13" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.04932 16H2.64932C2.31795 16 2.04932 16.2686 2.04932 16.6V21" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-about" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 9C9 5.49997 14.5 5.5 14.5 9C14.5 11.5 12 10.9999 12 13.9999" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 18.01L12.01 17.9989" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-list" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M2 11L16 11" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 17L13 17" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 5L20 5" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20 18.5C20 19.3284 19.3284 20 18.5 20C17.6716 20 17 19.3284 17 18.5C17 17.6716 17.6716 17 18.5 17C19.3284 17 20 17.6716 20 18.5ZM20 18.5V10.6C20 10.2686 20.2686 10 20.6 10H22" stroke="inherit" stroke-width="1.5" stroke-linecap="round"></path></symbol>
+		<symbol id="icon-logo" viewBox="0 0 400 400" fill="#306fe1" fill-rule="evenodd"><g><path d="M192.8,27.3c-.5,2.1-.4,5.1.3,6.6.7,1.5,1.7,12.6,2.1,24.6.7,18,1.2,21.9,3.2,21.9s2.4-3.6,2.8-21.3c.3-16.5,1-21.8,2.7-23.2,2.8-2.3,3-8,.4-10.6-3.5-3.5-10.5-2.3-11.5,2M215,37.7c-9.6,2.2-10.3,3.5-10.3,17.2s.5,13.8,8.5,10.8c4.8-1.8,27.9-4.8,28.9-3.8.4.4.5,6.1.3,12.6l-.4,11.9,9.2-.8c16.7-1.5,33.4-13.4,37.9-26.9,2.3-7.1,1.3-8.5-3.2-4.3-4.7,4.4-17,7-26.5,5.7-9.1-1.3-9.9-2.1-10.9-12.5-1.2-11.3-13-14.8-33.5-10M202.2,88.5c9.4,24.6,46.6,72.4,79.8,102.6,10.3,9.4,19.2,17.9,19.7,18.9.6,1.2,30.9,149.9,31.9,156.8.2,1.1,61.7-22.4,61.7-23.6,0-.8-7.6-25.4-17-54.7s-19.2-60.4-21.9-69c-5.7-18.7-17-35-24.2-35s-40.4-25.9-59.7-40c-22.3-16.3-48.2-37.8-59.9-49.7-8.6-8.8-12.2-10.9-10.3-6.2M182,99.1c-20,20.5-56.1,47.8-100.8,76.3-13.3,8.5-25.8,17-27.8,19-3.9,3.8-49.1,141.2-48.4,146.8.5,4,57.2,26.7,59.9,24,.4-.4,7.8-35.3,16.3-77.6,8.5-42.3,16.1-77.8,16.7-78.8.6-1.1,7.2-7.3,14.6-13.8,17.6-15.6,38.5-37.8,50.4-53.8,9.2-12.2,33.8-50.6,33.8-52.6,0-3-5.1.7-14.8,10.6M195.3,101.9c-9.6,33.4-24.1,62.7-50.3,101.6l-9.2,13.7-3.9,46.2c-4.2,50-3.9,48.7-15.1,62.2-8.5,10.2-9.1,14.6-2.7,17.7,6.4,3.1,8.8,6.7,12.8,20l3.8,12.5,10.1.5,10.1.5,23-66.1c12.7-36.3,23.5-67.7,24-69.7,1.4-5.4,4.3,1.8,35.8,89.5,17.6,49.1,15.9,46.1,26.4,46.1h8.2l4.9-12.9q5.8-15.2,12.3-19.7c7.1-4.9,6.5-7.8-4.3-20.7-11.3-13.5-10.1-8.3-14.1-60.8-2.6-33.9-3.9-44-6.1-47.7-1.5-2.6-8.4-13.5-15.3-24.2-19.9-31-35.2-63.3-41.8-88.3-3.9-15-4.4-15-8.6-.3M172.6,289.1c-10.7,29.6-21.3,59-23.5,65.3l-4.1,11.4-2.7-6.1c-3.4-7.6-11.1-16.5-18.1-20.8l-5.4-3.3,8.1-8.8c17.5-19.2,49.6-64.1,60.7-85,6.4-12,5.4-8.8-14.9,47.3M232.8,274.2c11.3,16.8,23.9,33.3,37.3,48.8,12.7,14.7,12.3,13.9,7.4,15.1-5.8,1.4-16.2,12.9-19.3,21.2l-2.8,7.5-23.4-64.9c-12.9-35.7-23.7-65.7-24-66.6-.3-.9,3.2,4.6,7.9,12.3,4.6,7.7,12.2,19.7,16.8,26.6"/></g></symbol>
+		<symbol id="icon-magazines" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M6 6L14 6" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6 10H18" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13 14L18 14" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13 18L18 18" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 21.4V2.6C2 2.26863 2.26863 2 2.6 2H18.2515C18.4106 2 18.5632 2.06321 18.6757 2.17574L21.8243 5.32426C21.9368 5.43679 22 5.5894 22 5.74853V21.4C22 21.7314 21.7314 22 21.4 22H2.6C2.26863 22 2 21.7314 2 21.4Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6 18V14H9V18H6Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M18 2V5.4C18 5.73137 18.2686 6 18.6 6H22" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-games" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M11 8.5L9.8 9L2.35172 12.3856C2.13752 12.4829 2 12.6965 2 12.9318V13.0682C2 13.3035 2.13752 13.5171 2.35172 13.6144L11.1724 17.6238C11.6982 17.8628 12.3018 17.8628 12.8276 17.6238L21.6483 13.6144C21.8625 13.5171 22 13.3035 22 13.0682V12.9318C22 12.6965 21.8625 12.4829 21.6483 12.3856L14.2 9L13 8.5" stroke="inherit" stroke-width="1.5"></path><path d="M22 13V17.112C22 17.3482 21.8615 17.5623 21.6462 17.6592L12.8207 21.6307C12.2988 21.8655 11.7012 21.8655 11.1793 21.6307L2.35378 17.6592C2.13847 17.5623 2 17.3482 2 17.112V13" stroke="inherit" stroke-width="1.5"></path><path d="M12 8C10.3431 8 9 6.65685 9 5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5C15 6.65685 13.6569 8 12 8Z" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11 8V13C11 13.5523 11.4477 14 12 14V14C12.5523 14 13 13.5523 13 13V8" stroke="inherit" stroke-width="1.5"></path><path d="M16 13H17" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></symbol>
+		<symbol id="icon-platforms" stroke-width="1.5" viewBox="0 0 24 24" fill="inherit" color="inherit"><path d="M2 21L17 21" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M21 21L22 21" stroke="inherit" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2 16.4V3.6C2 3.26863 2.26863 3 2.6 3H21.4C21.7314 3 22 3.26863 22 3.6V16.4C22 16.7314 21.7314 17 21.4 17H2.6C2.26863 17 2 16.7314 2 16.4Z" stroke="inherit" stroke-width="1.5"></path></symbol>
+		<symbol id="icon-advertising" viewBox="0 0 24 24" stroke-width="1.5" fill="inherit" color="inherit"><path d="M3 7.4V3.6C3 3.26863 3.26863 3 3.6 3H9.4C9.73137 3 10 3.26863 10 3.6V7.4C10 7.73137 9.73137 8 9.4 8H3.6C3.26863 8 3 7.73137 3 7.4Z" stroke="inherit" stroke-width="1.5"></path><path d="M14 20.4V16.6C14 16.2686 14.2686 16 14.6 16H20.4C20.7314 16 21 16.2686 21 16.6V20.4C21 20.7314 20.7314 21 20.4 21H14.6C14.2686 21 14 20.7314 14 20.4Z" stroke="inherit" stroke-width="1.5"></path><path d="M14 12.4V3.6C14 3.26863 14.2686 3 14.6 3H20.4C20.7314 3 21 3.26863 21 3.6V12.4C21 12.7314 20.7314 13 20.4 13H14.6C14.2686 13 14 12.7314 14 12.4Z" stroke="inherit" stroke-width="1.5"></path><path d="M3 20.4V11.6C3 11.2686 3.26863 11 3.6 11H9.4C9.73137 11 10 11.2686 10 11.6V20.4C10 20.7314 9.73137 21 9.4 21H3.6C3.26863 21 3 20.7314 3 20.4Z" stroke="inherit" stroke-width="1.5"></path></symbol>
+	</svg>
+	<section>
+		<main>
+			<article id="panel-home" class="hidden">
+				<div class="panel-inner">
+					<div class="app-header"><img src="img/vgpavilion-logo.svg"></div>
+					<div class="panel-home-stats"></div>
+				</div>
+				<button id="action-magazines" type="button" class="button-action"><svg><use href="#icon-magazines"></use></svg><span>Manage Magazines</span></button>
+				<button id="action-advertising" type="button" class="button-action"><svg><use href="#icon-advertising"></use></svg><span>Manage Advertising</span></button>
+				<button id="action-platforms" type="button" class="button-action"><svg><use href="#icon-platforms"></use></svg><span>Manage Platforms</span></button>
+				<button id="action-games" type="button" class="button-action"><svg><use href="#icon-games"></use></svg><span>Manage Games</span></button>
+				<button id="action-settings" type="button" class="button-action"><svg><use href="#icon-settings"></use></svg><span>Settings</span></button>
+				<button id="action-about" type="button" class="button-action"><svg><use href="#icon-about"></use></svg><span>About</span></button>
+			</article>
+			<article id="panel-about" class="hidden">
+				<div class="panel-inner">
+					<div class="app-header"><img src="img/vgpavilion-logo.svg"></div>
+					<div class="about-item">
+						<img src="img/VGPavilion.svg">
+						<p>Videogame Pavilion</p>
+						<a href="https://vgpavilion.com/">Videogame Preservation</a>
+					</div>
+					<h2>Development</h2>
+					<div class="about-item">
+						<img src="img/github.svg">
+						<p>KodiNFOMusicVideos v1.5</p>
+						<a href="https://github.com/clubside/KodiNFOMusicVideos">Create and Edit Kdoi NFO files for Music Videos collection</a>
+					</div>
+					<div class="about-item">
+						<img src="img/node.js.svg">
+						<p>Node.js v<span id="node-version">20.9.0</span></p>
+						<a href="https://nodejs.org/en">Node.js — Run JavaScript Everywhere</a>
+					</div>
+					<div class="about-item">
+						<img src="img/chromium.svg">
+						<p>Chromium v<span id="chrome-version">122.0.6261.156</span></p>
+						<a href="https://www.chromium.org/">The Chromium Projects</a>
+					</div>
+					<div class="about-item">
+						<img src="img/electron.svg">
+						<p>Electron v<span id="electron-version">29.2.0</span></p>
+						<a href="https://electronjs.org/">Electron: Build cross-platform desktop apps with JavaScript, HTML, and CSS</a>
+					</div>
+					<div class="about-item">
+						<div style="position: relative; display: inline-flex; align-items: center; background-color: white; padding: 4px; transition: all 0.1s ease 0s;">
+							<div style="color: black; background-color: white; margin-right: 4px;"><img src="img/iconoir-peace.svg" style="width: 4em; height: 4em;"></div>
+							<img src="img/iconoir-logo.svg" alt="Iconoir Logo" style="margin-top: -4px; color: black; height: 4em; width: auto;">
+						</div>
+						<p>iconoir</p>
+						<a href="https://iconoir.com/">Free Icons</a>
+					</div>
+					<h2>Information Providers</h2>
+					<div class="about-item">
+						<img src="img/ConsoleVariations.svg">
+						<p>Console Variations</p>
+						<a href="https://consolevariations.com/">The Ultimate Console Database</a>
+					</div>
+					<div class="about-item">
+						<img src="img/GameFaqs.svg">
+						<p>GameFAQs</p>
+						<a href="https://gamefaqs.gamespot.com/">Video Game Cheats, Reviews, FAQs, Message Boards, and More</a>
+					</div>
+					<div class="about-item">
+						<img src="img/Gamespot.svg">
+						<p>Gamespot</p>
+						<a href="https://www.gamespot.com/">Video Games Reviews &amp; News</a>
+					</div>
+					<div class="about-item">
+						<img src="img/GiantBomb.svg">
+						<p>Giant Bomb</p>
+						<a href="https://www.giantbomb.com/">Video game reviews, videos, forums and wiki.</a>
+					</div>
+					<div class="about-item">
+						<img src="img/IGDB.svg">
+						<p>IGDB</p>
+						<a href="https://www.igdb.com/">Discover, Rate &amp; Track Your Games | Contribute to the Largest Video Games Database</a>
+					</div>
+					<div class="about-item">
+						<img src="img/IGN.svg">
+						<p>IGN</p>
+						<a href="https://www.ign.com/">Video Game News, Reviews, and Walkthroughs</a>
+					</div>
+					<div class="about-item">
+						<img src="img/LaunchBox.png">
+						<p>LaunchBox</p>
+						<a href="https://www.launchbox-app.com/">Frontend for Emulation, DOSBox, and Arcade Cabinets, Portable Games Launcher and Database</a>
+					</div>
+					<div class="about-item">
+						<img src="img/Metacritic.svg">
+						<p>Metacritic</p>
+						<a href="https://www.metacritic.com/">Movie Reviews, TV Reviews, Game Reviews, and Music Reviews</a>
+					</div>
+					<div class="about-item">
+						<img src="img/MobyGames.png">
+						<p>MobyGames</p>
+						<a href="https://www.mobygames.com/">Video Game Database</a>
+					</div>
+					<div class="about-item">
+						<img src="img/KLOV.png">
+						<p>Museum of the Game</p>
+						<a href="https://www.arcade-museum.com/">Arcade, Videogame, Pinball Machine, Game, and Antique Coin-Operated History</a>
+					</div>
+					<div class="about-item">
+						<img src="img/Unseen64.png">
+						<p>Unseen64</p>
+						<a href="https://www.unseen64.net/">Cancelled Video Games &amp; Their Lost Media</a>
+					</div>
+					<div class="about-item">
+						<img src="img/XboxAddict.png">
+						<p>XboxAddict</p>
+						<a href="https://xboxaddict.com/">Xbox Series S/X, Xbox One, Xbox 360, Original Xbox - Achievements, Games, Reviews, Faceplates and much more since 2000</a>
+					</div>
+					<div class="about-item">
+						<img src="img/Wikipedia.svg">
+						<p>Wikipedia</p>
+						<a href="https://en.wikipedia.org/">The Free Encyclopedia</a>
+					</div>
+				</div>
+			</article>
+			<article id="panel-settings" class="hidden">
+				<div class="panel-inner">
+					<div class="app-header"><img src="img/vgpavilion-logo.svg"></div>
+					<p>Provide the folder to store the database:</p>
+					<label>
+						<span>Database Folder</span>
+						<input id="database-folder" type="text">
+					</label>
+					<div class="button-row">
+						<button id="browse-database-folder" type="button" class="button-form">Browse</button>
+						<button id="set-database-folder" type="button" class="button-form" disabled="">Set</button>
+					</div>
+					<p>Provide the folder to render the static site:</p>
+					<label>
+						<span>Site Folder</span>
+						<input id="site-folder" type="text">
+					</label>
+					<div class="button-row">
+						<button id="browse-site-folder" type="button" class="button-form">Browse</button>
+						<button id="set-site-folder" type="button" class="button-form" disabled="">Set</button>
+					</div>
+				</div>
+				<div class="panel-settings-header"><span>Videos</span></div>
+				<ul class="panel-inner panel-settings-list">
+					<li><div>Compact View</div><div><toggle-switch id="videos-setting-compact"></toggle-switch></div></li>
+					<li><div>Display Extended Information</div><div><toggle-switch id="videos-setting-extended"></toggle-switch></div></li>
+				</ul>
+			</article>
+		</main>
+		<footer>
+			<article>
+				<button id="nav-back" type="button" class="button-image" disabled title="Back"><svg><use href="#icon-back"></use></svg></button>
+			</article>
+			<article id="video-navigation" class="hidden">
+				<button id="nav-prev" type="button" class="button-image" title="Previous Music Video"><svg><use href="#caret-left"></use></svg></button>
+				<button id="action-save" type="button" class="button-image" title="Save Music Video"><svg><use href="#icon-save"></use></svg></button>
+				<button id="nav-next" type="button" class="button-image" title="Next Music Video"><svg><use href="#caret-right"></use></svg></button>
+			</article>
+			<article>
+				<button id="nav-color-mode" type="button" class="button-image" title="Toggle Dark/Light Mode"><svg><use href="#icon-dark"></use></svg></button>
+				<button id="nav-settings" type="button" class="button-image" title="Settings"><svg><use href="#icon-settings"></use></svg></button>
+				<button id="nav-about" type="button" class="button-image" title="About"><svg><use href="#icon-logo"></use></svg></button>
+			</article>
+		</footer>
+	</section>
+
+	<!-- You can also require other files to run in this process -->
+	<script src="./renderer.js" type="module"></script>
+</body>
+
+</html>
